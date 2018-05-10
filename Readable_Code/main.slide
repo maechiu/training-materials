@@ -8,3 +8,5 @@ trooper0903+amidas@gmail.com
 * 元ネタ
 .image https://www.oreilly.co.jp/books/images/picture_large978-4-87311-565-8.jpeg _ 400
 
+* Hello, World with Go
+.play -numbers src/hello.go
