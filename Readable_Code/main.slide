@@ -8,5 +8,133 @@ trooper0903+amidas@gmail.com
 * 元ネタ
 .image https://www.oreilly.co.jp/books/images/picture_large978-4-87311-565-8.jpeg _ 400
 
-* Hello, World with Go
-.play -numbers src/hello.go
+* 理解しやすいコード
+
+* ひどいコード
+
+	package com.renban.erq053.czp008;
+	 
+	/**
+	 * ZWQI001 クラス
+	 */
+	public class ZWQI001 {
+	    /**
+	     * m_F001
+	     */
+	    private String m_F001 = "";
+	 
+	    /**
+	     * コンストラクタ
+	     */
+	    public ZWQI001() {
+	    }
+	 
+	    /**
+	     * m_F001 を返却します。
+	     */
+	    public String get_m_F001() {
+		return m_F001;
+	    }
+
+* なにがひどい？
+
+- 
+-  
+-  
+-  
+-  
+- 
+-  
+-  
+-  
+-  
+
+* 一番大事なこと
+*コードは理解しやすくなければいけない。*
+
+* 他の人が理解できるってそんなに大事なこと？
+理解できないコードが存在すると何が良くないのか？
+
+- 
+-  
+-  
+-  
+-  
+- 
+-  
+-  
+-  
+-  
+
+* 本講座の目的
+*コーディングスキルの中で最も基本的かつ最も重要な名前付けのスキルを高める*
+
+.image https://2.bp.blogspot.com/-xBtL7LoIcVM/WdyDTcmIEuI/AAAAAAABHbY/M3SXH5AWeWcAlUZdSWdMm2TA914NMwAkwCLcBGAs/s800/character_program_smart.png _ 500
+
+* 名前に情報を詰め込む
+.image ./images/name.png _ 800
+
+* 1. 明確な単語を選ぶ
+「名前に情報を詰め込む」には、明確な単語を選ぶこと。
+
+	func GetPage(url):
+
+明確だと思う理由
+
+-  
+-  
+-  
+
+明確だと思わない理由と代替案
+
+-  
+-  
+-  
+
+* 1. 明確な単語を選ぶ
+
+	class BinaryTree {
+	  int Size();
+	  ...
+	}
+
+Size()メソッドは何を返す？
+
+-  
+-  
+-  
+
+他の良い名前は？
+
+-  
+-  
+-  
+
+* 1. 明確な単語を選ぶ - Use Thesaurus
+類語辞典を使って調べる。他の人にもっといい名前がないか聞いてみる。
+選べる単語はもっとあるはず。
+
+練習 次の単語の類語を挙げてみよう。
+
+- send
+- find
+- start
+- make
+
+* 2. tmp, retvalなどの汎用的な名前を避ける
+tmp, retval, foo などの名前は、名前について何も考えてないと言っているのと同じ。
+*そのエンティティ（変数や、関数のこと）の値や目的を表した名前を選ぶこと*
+
+例）ユークリッドノルムを求める関数
+
+.link https://ja.wikipedia.org/wiki/%E3%83%8E%E3%83%AB%E3%83%A0#%E6%9C%89%E9%99%90%E6%AC%A1%E5%85%83%E3%83%99%E3%82%AF%E3%83%88%E3%83%AB%E3%81%AE%E3%83%8E%E3%83%AB%E3%83%A0 ユークリッドノルム
+
+	var euclidean_norm = function (v) {
+	  var retval = 0.0;
+	  for ( var i = 0; i < v.length; i += 1)
+	    retval += v[i] * v[i];
+	  return Math.sqrt(retval);
+	};
+
+- 上記の関数において、retvalの役割は？
+- 役割にふさわしい適切な名前は？
