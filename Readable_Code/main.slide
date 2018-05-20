@@ -234,3 +234,125 @@ DISALLOW_EVIL_CONSTRUCTORSマクロは次のように定義されている
 
 - 入力された data をURLエンコードした
 	data → ______________________________
+
+* 5. 名前の長さを決める
+いい名前を選ぶときには「 *長い名前を避ける* 」
+
+	newNavigationControllerWrappingViewControllerForDataSourceOfClass
+
+しかし、短ければよいということではない。
+次の名前のうち、最終更新日からの経過日数を表すのに良いものは？
+
+- d
+- days
+- days_since_last_update
+
+* 5. 名前の長さを決める - スコープが小さければ短い名前でもいい
+スコープとは *その名前が見えるコードの行数* 。スコープが小さければ
+その変数に関するすべての情報（変数の型、初期値、破棄方法など）は見える
+よって、名前は短くてもよい
+
+- OK
+
+	if (debug) {
+	  map<string, int> m;
+	  LookUpNamesNumbers(&m);
+	  Print(m);
+	}
+
+
+- NG : mの型や目的がわからない
+
+	if (debug) {
+	  LookUpNamesNumbers(&m); 
+	  Print(m);
+	}
+
+
+* 5. 名前の長さを決める - 頭文字と省略形
+省略形を使って名前を短くする場合は、その省略形が慣習的、または一般的であること
+
+練習　次の省略形は名前として適切か？
+
+- str
+- eval
+- doc
+- BE
+- HTTP
+- cls
+- JRA
+- ctx
+- API
+
+
+* 5. 名前の長さを決める - 不要な単語を投げ捨てる
+
+変数名に含まれる単語を削除しても情報が失われない場合は削除する
+
+	ConvertToString() → ___________________________________
+
+	DoServerLoop() → ___________________________________
+
+* 誤解されない名前
+*名前が他の意味と間違えられることはないだろうか?*
+
+.image ./images/name2.png _ 800
+
+* 1. 例：filter()
+データベースの問い合わせ結果を処理するコードを書いているとする。
+
+	results = Database.all_objects.filter("year <= 2011")
+
+この results には何が含まれていると想像できるか?
+
+-  
+-  
+
+* 2. 限界値を含めるときは min と max を使う
+ショッピングカートに商品が10点までしか入らないとする。
+
+	CART_TOO_BIG_LIMIT = 10
+
+	if shopping_cart.num_items() >= CART_TOO_BIG_LIMIT:
+	  Error("カートにある商品数が多すぎます。")
+
+上記のコードのバグは？
+
+-  
+
+
+修正の方法は？
+
+- 
+
+
+* 3. 範囲, 包含/排他的範囲を表す名前
+
+- 範囲をしていするときは first と last を使う
+
+.image ./images/first_last.png _ 400
+
+
+- 包含/排他的範囲には begin と end を使う 
+
+.image ./images/begin_end.png _ 400
+
+
+* 4. ブール値の名前
+ブール値の変数やブール値を返す関数の名前を選ぶときには
+*trueとfalseの意味を明確にする*
+
+	bool read_password = true;
+
+上記のコードは、２つの解釈の仕方がある
+
+- 
+-  
+
+この場合は read を避けるべき。
+では、代わりの名前はなんだろうか？
+
+- 
+- 
+
+
