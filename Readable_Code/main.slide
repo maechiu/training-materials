@@ -8,5 +8,356 @@ trooper0903+amidas@gmail.com
 * 元ネタ
 .image https://www.oreilly.co.jp/books/images/picture_large978-4-87311-565-8.jpeg _ 400
 
-* Hello, World with Go
-.play -numbers src/hello.go
+* 理解しやすいコード
+
+* ひどいコード
+
+	package com.renban.erq053.czp008;
+	 
+	/**
+	 * ZWQI001 クラス
+	 */
+	public class ZWQI001 {
+	    /**
+	     * m_F001
+	     */
+	    private String m_F001 = "";
+	 
+	    /**
+	     * コンストラクタ
+	     */
+	    public ZWQI001() {
+	    }
+	 
+	    /**
+	     * m_F001 を返却します。
+	     */
+	    public String get_m_F001() {
+		return m_F001;
+	    }
+
+* なにがひどい？
+
+- 
+-  
+-  
+-  
+-  
+- 
+-  
+-  
+-  
+-  
+
+* 一番大事なこと
+*コードは理解しやすくなければいけない。*
+
+* 他の人が理解できるってそんなに大事なこと？
+理解できないコードが存在すると何が良くないのか？
+
+- 
+-  
+-  
+-  
+-  
+- 
+-  
+-  
+-  
+-  
+
+* 本講座の目的
+*コーディングスキルの中で最も基本的かつ最も重要な名前付けのスキルを高める*
+
+.image https://2.bp.blogspot.com/-xBtL7LoIcVM/WdyDTcmIEuI/AAAAAAABHbY/M3SXH5AWeWcAlUZdSWdMm2TA914NMwAkwCLcBGAs/s800/character_program_smart.png _ 500
+
+* 名前に情報を詰め込む
+.image ./images/name.png _ 800
+
+* 1. 明確な単語を選ぶ
+「名前に情報を詰め込む」には、明確な単語を選ぶこと。
+
+	func GetPage(url):
+
+明確だと思う理由
+
+-  
+-  
+-  
+
+明確だと思わない理由と代替案
+
+-  
+-  
+-  
+
+* 1. 明確な単語を選ぶ
+
+	class BinaryTree {
+	  int Size();
+	  ...
+	}
+
+Size()メソッドは何を返す？
+
+-  
+-  
+-  
+
+他の良い名前は？
+
+-  
+-  
+-  
+
+* 1. 明確な単語を選ぶ - Use Thesaurus
+類語辞典を使って調べる。他の人にもっといい名前がないか聞いてみる。
+選べる単語はもっとあるはず。
+
+練習 次の単語の類語を挙げてみよう。
+
+- send
+- find
+- start
+- make
+
+* 2. tmp, retvalなどの汎用的な名前を避ける
+tmp, retval, foo などの名前は、名前について何も考えてないと言っているのと同じ。
+*そのエンティティ（変数や、関数のこと）の値や目的を表した名前を選ぶこと*
+
+例）ユークリッドノルムを求める関数
+
+.link https://ja.wikipedia.org/wiki/%E3%83%8E%E3%83%AB%E3%83%A0#%E6%9C%89%E9%99%90%E6%AC%A1%E5%85%83%E3%83%99%E3%82%AF%E3%83%88%E3%83%AB%E3%81%AE%E3%83%8E%E3%83%AB%E3%83%A0 ユークリッドノルム
+
+	var euclidean_norm = function (v) {
+	  var retval = 0.0;
+	  for ( var i = 0; i < v.length; i += 1)
+	    retval += v[i] * v[i];
+	  return Math.sqrt(retval);
+	};
+
+- 上記の関数において、retvalの役割は？
+- 役割にふさわしい適切な名前は？
+
+* 2. tmp, retvalなどの汎用的な名前を避ける - tmpの使い方
+
+- OK
+
+	if (right < left) {
+	  tmp = right;
+	  right = left;
+	  left = tmp;
+	}
+
+
+- NG
+
+	String tmp = user.name();
+	tmp += " " + user.phone_number();
+	tmp += " " + user.email();
+	template.set("user_info", tmp);
+
+
+*tmpという名前は、___________が短くて、__________________が最も大切な変数にだけ使う*
+
+* 2. tmp, retvalなどの汎用的な名前を避ける - ループイテレータ
+ループイテレータとしては以下の変数名を用いるのが慣習的
+
+- i
+- j
+- k
+- ite
+
+* 2. tmp, retvalなどの汎用的な名前を避ける - まとめ
+tmp, it, retvalのような汎用的な名前を使うときは、 *それ相応の理由があること*
+
+* 3. 抽象的な名前よりも具体的な名前を使う
+
+	class ClassName {
+	  private:
+	  DISALLOW_EVIL_CONSTRUCTORS(ClassName);
+
+	  public:
+	  ...
+	};
+
+DISALLOW_EVIL_CONSTRUCTORSマクロは次のように定義されている
+
+	#define DISALLOW_EVIL_CONSTRUCTORS(ClassName) \
+	  ClassName(const ClassName&); \
+	  void operator=(const ClassName&);
+
+- 上記のマクロの何が問題？
+
+* 4. 名前に情報を追加する - 値の単位
+
+時間やバイト数のように計測できるものの場合、変数名に単位を入れるのも良い。
+例えば、ウェブページの読み込み時間を計測するJavaScriptのコードの場合
+
+	var start = (new Date()).getTime();
+	...
+	var elapsed = (new Date()).getTime() - start;
+	document.writeln("読込時間:" + elapsed + "秒");
+
+上記のコードは実は不具合を含む。getTime()は、秒ではなく、ミリ秒を返す。
+
+どう修正する?
+
+- ____________________________________  →  ____________________________________ 
+
+* 4. 名前に情報を追加する - 値の単位
+練習 次の関数の引数名に情報を追加し、改善せよ。
+
+- Start(int delay)
+
+
+- CreateCache(int size)
+
+
+- ThrottleDownload(float limit)
+
+
+- Rotate(float angle)
+
+* 4. 名前に情報を追加する - その他の重要な属性を追加する
+
+名前に追加できる情報は単位だけではない。 *危険や注意を換気する情報*も追加したほうが良い
+
+- 処理する前に暗号化が必要なプレインテキストパスワード
+	password → ______________________________
+
+- ユーザが入力した comment は表示する前にエスケープする必要がある
+	comment → ______________________________
+
+- htmlの文字コードをUTF-8に変えた
+	html → ______________________________
+
+- 入力された data をURLエンコードした
+	data → ______________________________
+
+* 5. 名前の長さを決める
+いい名前を選ぶときには「 *長い名前を避ける* 」
+
+	newNavigationControllerWrappingViewControllerForDataSourceOfClass
+
+しかし、短ければよいということではない。
+次の名前のうち、最終更新日からの経過日数を表すのに良いものは？
+
+- d
+- days
+- days_since_last_update
+
+* 5. 名前の長さを決める - スコープが小さければ短い名前でもいい
+スコープとは *その名前が見えるコードの行数* 。スコープが小さければ
+その変数に関するすべての情報（変数の型、初期値、破棄方法など）は見える
+よって、名前は短くてもよい
+
+- OK
+
+	if (debug) {
+	  map<string, int> m;
+	  LookUpNamesNumbers(&m);
+	  Print(m);
+	}
+
+
+- NG : mの型や目的がわからない
+
+	if (debug) {
+	  LookUpNamesNumbers(&m); 
+	  Print(m);
+	}
+
+
+* 5. 名前の長さを決める - 頭文字と省略形
+省略形を使って名前を短くする場合は、その省略形が慣習的、または一般的であること
+
+練習　次の省略形は名前として適切か？
+
+- str
+- eval
+- doc
+- BE
+- HTTP
+- cls
+- JRA
+- ctx
+- API
+
+
+* 5. 名前の長さを決める - 不要な単語を投げ捨てる
+
+変数名に含まれる単語を削除しても情報が失われない場合は削除する
+
+	ConvertToString() → ___________________________________
+
+	DoServerLoop() → ___________________________________
+
+* 誤解されない名前
+*名前が他の意味と間違えられることはないだろうか?*
+
+.image ./images/name2.png _ 800
+
+* 1. 例：filter()
+データベースの問い合わせ結果を処理するコードを書いているとする。
+
+	results = Database.all_objects.filter("year <= 2011")
+
+この results には何が含まれていると想像できるか?
+
+-  
+-  
+
+* 2. 限界値を含めるときは min と max を使う
+ショッピングカートに商品が10点までしか入らないとする。
+
+	CART_TOO_BIG_LIMIT = 10
+
+	if shopping_cart.num_items() >= CART_TOO_BIG_LIMIT:
+	  Error("カートにある商品数が多すぎます。")
+
+上記のコードのバグは？
+
+-  
+
+
+修正の方法は？
+
+- 
+
+
+* 3. 範囲, 包含/排他的範囲を表す名前
+
+- 範囲をしていするときは first と last を使う
+
+.image ./images/first_last.png _ 400
+
+
+- 包含/排他的範囲には begin と end を使う 
+
+.image ./images/begin_end.png _ 400
+
+
+* 4. ブール値の名前
+ブール値の変数やブール値を返す関数の名前を選ぶときには
+*trueとfalseの意味を明確にする*
+
+	bool read_password = true;
+
+上記のコードは、２つの解釈の仕方がある
+
+- 
+-  
+
+この場合は read を避けるべき。
+では、代わりの名前はなんだろうか？
+
+- 
+- 
+
+
+* まとめ
+
+最善の名前とは、誤解されない名前である。
+コードを読んでいる人が、コードの意図を正しく理解できるということ。
+名前を決める前に反対意見を考えるなどして、誤解されない名前かどうかを想像しよう。
